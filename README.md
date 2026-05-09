@@ -8,6 +8,20 @@ Final project for **COMS3430 (Spring 2026)** — Prof. Mark Santolucito, Barnard
 
 **Live demo:** https://andrew-bonilla.github.io/coDAW/
 
+> ⚠️ **Work in progress.** This is an active project — features are still being added and refined.
+
+## Motivation
+
+The idea for coDAW came out of the live-coding performances we did in class using [Strudel](https://strudel.cc/). Watching a piece of music get built collaboratively — each person editing the code the previous person had written, layering and reworking ideas in real time — was unlike any music-making experience I'd had before. It felt closer to pair programming than to a band rehearsal, and it made me realize how much of music production has been locked behind GUI-heavy DAWs that don't lend themselves to that kind of fluid, iterative collaboration.
+
+A code-first DAW changes the surface area of the problem in a few ways I find exciting:
+
+- **Automation and computation become native.** Loops, conditionals, generative patterns, and parametric sound design are just code — no need to draw automation lanes or wire up modulation chains by hand. Complex synths, sequences, and effect topologies that would take a long time to build by clicking and dragging can be expressed in a few lines.
+- **Music becomes diffable.** Once a song is text, it lives naturally in Git. You can branch, fork, pull-request, and review music the same way you do code — opening the door to GitHub-style collaboration on songs and sample packs in the future.
+- **AI-assisted music editing becomes straightforward.** Because the entire composition is just a JavaScript file, an LLM can read it, reason about it, and propose edits via prompt — "make the bass groovier," "add a bridge in F# minor," "swap the lead synth for something darker." The code is the interface both humans and models can manipulate.
+
+coDAW is my attempt to take what made Strudel sessions feel so creative and stretch it into something that looks and behaves more like a traditional DAW — with a timeline, draggable clips, a piano roll, and a record button — while keeping code as the source of truth underneath.
+
 ## Features
 
 - **JavaScript DSL** for declaring instruments, patterns, effects, and timing
