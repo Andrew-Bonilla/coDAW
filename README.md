@@ -1,7 +1,7 @@
 # coDAW
 
 <p align="center">
-  <img src="./docs/live-coding-me.jpg" alt="Me live-coding with Strudel" width="600" />
+  <img src="./docs/live-coding-me.jpg" alt="Me live-coding with Strudel" width="100" />
 </p>
 
 
