@@ -1,12 +1,5 @@
 # coDAW
 
-<p align="center">
-  <img src="./docs/live-coding-me.jpg" alt="Me live-coding with Strudel" width="200" />
-  <br />
-  <em>Live-coding with Strudel in COMS3430 — the experience that sparked coDAW.</em>
-</p>
-
-
 A coding-first digital audio workstation that runs in the browser. Write JavaScript to define instruments, patterns, and effects! The code is rendered as draggable clips on a timeline that you can rearrange visually, edit note-by-note in a piano roll, play back, and record to an audio file.
 
 The code is the essense: drag a clip, and the `start:` value in your code updates. Edit a melody in the piano roll, and the events array in your code rewrites itself. Re-run anytime to regenerate everything from the editor.
@@ -18,6 +11,12 @@ Final project for **COMS3430 (Spring 2026)** — Dr. Santolucito, Barnard Colleg
 > ⚠️ **Work in progress.** This is an active project — features are still being added and refined.
 
 ## Motivation
+
+<p align="center">
+  <img src="./docs/live-coding-me.jpg" alt="Me live-coding with Strudel" width="200" />
+  <br />
+  <em>Live-coding with Strudel in COMS3430 — the experience that sparked coDAW.</em>
+</p>
 
 I had the idea for coDAW from the live-coding performances we did in class using [Strudel](https://strudel.cc/). Watching music get built collaboratively from just code, with each person editing the code the previous person had written, layering and reworking ideas in real time, was unlike any music-making experience I've had before. It combined pair programming to a band jam session, and inspired me to explore more about this strange, new path into music. It made me realize how much of music production has been locked behind GUI-heavy DAWs that don't invest into that kind of fluid, iterative collaboration.
 
