@@ -151,7 +151,7 @@ This builds and pushes the production bundle to the `gh-pages` branch. GitHub Pa
 - **`src/utils/codeUpdater.js`** — bracket-aware string manipulation that rewrites `start:` values and event arrays back into the source code when you drag clips or edit the piano roll.
 - **`src/components/`** — Editor (CodeMirror), Timeline, Clip (draggable), PianoRoll, Playhead, Controls.
 
-## Limitations
+## Current Limitations
 
 - No undo / redo
 - Single transport: no looping, no per-clip playback
