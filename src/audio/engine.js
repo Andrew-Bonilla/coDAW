@@ -1,5 +1,6 @@
 import * as Tone from 'tone'
 import { resetState, getClips, getBpm, synth, play, effect, bpm, connect } from './api'
+import { euclid, scale, chord, repeat } from './helpers'
 
 let activeParts   = []
 let activeRecorder = null
@@ -10,8 +11,12 @@ export async function runUserCode(code) {
   activeParts.forEach(p => { try { p.dispose() } catch (_) {} })
   activeParts = []
 
-  const fn = new Function('bpm', 'synth', 'play', 'effect', 'connect', code)
-  fn(bpm, synth, play, effect, connect)
+  const fn = new Function(
+    'bpm', 'synth', 'play', 'effect', 'connect',
+    'euclid', 'scale', 'chord', 'repeat',
+    code,
+  )
+  fn(bpm, synth, play, effect, connect, euclid, scale, chord, repeat)
 
   return getClips()
 }

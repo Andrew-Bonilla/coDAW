@@ -85,6 +85,13 @@ function durationToBeats(dur) {
 
 export function play(instrument, patternOrEvents, options = {}) {
   const noteDuration = options.note_duration || '8n'
+
+  // Normalize: an array of note strings is shorthand for a space-separated string pattern.
+  // Lets scale() and other helpers return arrays that flow directly into play().
+  if (Array.isArray(patternOrEvents) && typeof patternOrEvents[0] === 'string') {
+    patternOrEvents = patternOrEvents.join(' ')
+  }
+
   const isSequence = Array.isArray(patternOrEvents) && typeof patternOrEvents[0] === 'object'
 
   let notes, patternLabel, widthMeasures

@@ -5,12 +5,24 @@ const NOTE_HEIGHT = 16   // px per semitone
 const PIANO_WIDTH = 56   // px for key labels
 const SNAP        = 0.25 // beat grid (16th notes)
 
-// Build note list B6 → C1 (high to low, as shown in piano rolls)
-const CHROMATIC = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
-const ALL_NOTES = []
-for (let oct = 6; oct >= 1; oct--)
-  for (let i = CHROMATIC.length - 1; i >= 0; i--)
-    ALL_NOTES.push(`${CHROMATIC[i]}${oct}`)
+// Build note list B6 → C1 (high to low, as shown in piano rolls).
+// NOTE_ROW maps every spelling — both sharps (D#4) and flats (Eb4) —
+// to the same row index, so chord() / scale() helpers (which emit flats)
+// resolve to the right key on the keyboard.
+const CHROMATIC      = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
+const SHARP_TO_FLAT  = { 'C#':'Db', 'D#':'Eb', 'F#':'Gb', 'G#':'Ab', 'A#':'Bb' }
+const ALL_NOTES      = []
+const NOTE_ROW       = {}
+for (let oct = 6; oct >= 1; oct--) {
+  for (let i = CHROMATIC.length - 1; i >= 0; i--) {
+    const pitch = CHROMATIC[i]
+    const sharp = `${pitch}${oct}`
+    ALL_NOTES.push(sharp)
+    const idx = ALL_NOTES.length - 1
+    NOTE_ROW[sharp] = idx
+    if (SHARP_TO_FLAT[pitch]) NOTE_ROW[`${SHARP_TO_FLAT[pitch]}${oct}`] = idx
+  }
+}
 
 function isBlack(note) { return note.includes('#') }
 
@@ -29,11 +41,26 @@ function beatsToDuration(beats) {
 
 function snapTo(v, grid = SNAP) { return Math.round(v / grid) * grid }
 
+// Expand chord notation ('A4+C5+E5') into one event per pitch so the piano roll
+// can render and edit each note individually. The audio engine and codeUpdater
+// recombine identical time/duration groups back into chord syntax on save.
+function explodeChords(events) {
+  return events.flatMap(e =>
+    typeof e.note === 'string' && e.note.includes('+')
+      ? e.note.split('+').map(note => ({ ...e, note }))
+      : [{ ...e }]
+  )
+}
+
 export function clipToEvents(clip) {
-  if (clip.isSequence) return clip.notes.map(e => ({ ...e }))
-  return clip.notes
-    .filter(n => n !== '~')
+  if (clip.isSequence) return explodeChords(clip.notes)
+  // Map FIRST so the index reflects the position in the original pattern
+  // (including rests), then drop rests. Otherwise rests collapse out and the
+  // remaining notes get re-indexed contiguously — losing all spacing.
+  const events = clip.notes
     .map((note, i) => ({ note, time: i * durationToBeats(clip.noteDuration), duration: clip.noteDuration }))
+    .filter(e => e.note !== '~')
+  return explodeChords(events)
 }
 
 export default function PianoRoll({ clip, onClose, onEventsChange }) {
@@ -43,7 +70,7 @@ export default function PianoRoll({ clip, onClose, onEventsChange }) {
   // Scroll to show C4 area on open
   useEffect(() => {
     if (!scrollRef.current) return
-    const c4idx = ALL_NOTES.indexOf('C5')
+    const c4idx = NOTE_ROW['C5'] ?? 0
     scrollRef.current.scrollTop = c4idx * NOTE_HEIGHT - 200
   }, [])
 
@@ -74,7 +101,7 @@ export default function PianoRoll({ clip, onClose, onEventsChange }) {
     e.preventDefault(); e.stopPropagation()
     const startX = e.clientX, startY = e.clientY
     const origTime = events[idx].time
-    const origNoteIdx = ALL_NOTES.indexOf(events[idx].note)
+    const origNoteIdx = NOTE_ROW[events[idx].note] ?? 0
 
     const onMove = (e) => {
       const newTime = Math.max(0, snapTo(origTime + (e.clientX - startX) / BEAT_WIDTH))
@@ -146,7 +173,7 @@ export default function PianoRoll({ clip, onClose, onEventsChange }) {
 
             {/* Notes */}
             {events.map((ev, i) => {
-              const noteIdx = ALL_NOTES.indexOf(ev.note)
+              const noteIdx = NOTE_ROW[ev.note] ?? -1
               if (noteIdx === -1) return null
               return (
                 <div key={i} className="pr-note"

@@ -50,9 +50,28 @@ export function updateClipEventsInCode(code, clipIndex, events) {
   return code.slice(0, arg2Start) + ' ' + serialized + code.slice(arg2End)
 }
 
+// Merge events that share the same time AND duration into chord notation
+// (e.g. three events at time=0/dur=2n with notes A4, C5, E5 → 'A4+C5+E5').
+// Preserves the relative order each pitch appears in the input.
+function mergeChords(events) {
+  const groups = new Map()
+  const order  = []
+  for (const e of events) {
+    const key = `${e.time}|${e.duration}`
+    if (!groups.has(key)) { groups.set(key, []); order.push(key) }
+    groups.get(key).push(e)
+  }
+  return order.map(key => {
+    const group = groups.get(key)
+    if (group.length === 1) return group[0]
+    return { ...group[0], note: group.map(g => g.note).join('+') }
+  })
+}
+
 function serializeEvents(events) {
   if (!events.length) return '[]'
-  const lines = events.map(e =>
+  const merged = mergeChords(events)
+  const lines = merged.map(e =>
     `    { note: '${e.note}', time: ${e.time}, duration: '${e.duration}' }`
   )
   return `[\n${lines.join(',\n')}\n  ]`

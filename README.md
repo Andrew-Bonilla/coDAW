@@ -77,6 +77,50 @@ play(lead, [
 ], { label: 'Sequence', start: 0 })
 ```
 
+### Generative helpers
+
+These pure functions are available inside your code — they make computation-driven music writing way more concise.
+
+```js
+// scale(root, mode) — returns an array of notes in a musical scale
+scale('C4', 'minor')      // → ['C4','D4','Eb4','F4','G4','Ab4','Bb4']
+scale('A',  'minorPentatonic')
+// Modes: major, minor, dorian, phrygian, lydian, mixolydian, locrian,
+//        minorPentatonic, majorPentatonic, blues, chromatic
+
+// chord(name, octave?) — returns a play()-ready chord string
+chord('Cm')               // → 'C4+Eb4+G4'
+chord('Cm7', 3)           // → 'C3+Eb3+G3+Bb3'
+chord('Fmaj7')            // → 'F4+A4+C5+E5'
+// Qualities: maj, m, min, dim, aug, 7, maj7, m7, dim7, sus2, sus4
+
+// euclid(note, hits, steps) — generates an evenly-distributed rhythm
+euclid('C1', 3, 8)        // → 'C1 ~ ~ C1 ~ ~ C1 ~'   (tresillo)
+euclid('C1', 5, 8)        // → 'C1 ~ C1 ~ C1 C1 ~ C1' (cinquillo)
+euclid('C1', 4, 16)       // → four-on-the-floor
+
+// repeat(n, pattern) — concatenate a pattern n times
+repeat(4, 'C4 E4')        // → 'C4 E4 C4 E4 C4 E4 C4 E4'
+```
+
+These compose naturally with `play()` — which also accepts arrays of note strings directly, so no `.join(' ')` is needed:
+
+```js
+// A walking minor scale
+play(lead, scale('C4', 'minor'), { note_duration: '8n' })
+
+// Euclidean kick pattern, two bars
+play(kick, repeat(2, euclid('C1', 3, 8)), { note_duration: '8n' })
+
+// A i–iv–V–i progression
+play(piano, [
+  { note: chord('Am'),  time: 0, duration: '2n' },
+  { note: chord('Dm'),  time: 2, duration: '2n' },
+  { note: chord('E7'),  time: 4, duration: '2n' },
+  { note: chord('Am'),  time: 6, duration: '2n' },
+])
+```
+
 ## Running locally
 
 ```bash
