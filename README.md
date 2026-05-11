@@ -13,7 +13,7 @@ Final project for **COMS3430 (Spring 2026)** — Dr. Santolucito, Barnard Colleg
 ## Motivation
 
 <p align="center">
-  <img src="./docs/live-coding-me.jpg" alt="Me live-coding with Strudel" width="200" />
+  <img src="./docs/live-coding-me.jpg" alt="Me live-coding with Strudel" width="400" />
   <br />
   <em>Live-coding with Strudel in COMS3430 — the experience that sparked coDAW.</em>
 </p>
