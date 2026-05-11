@@ -1,10 +1,10 @@
 # coDAW
 
-A coding-first digital audio workstation that runs in the browser. Write JavaScript to define instruments, patterns, and effects — the code is rendered as draggable clips on a timeline that you can rearrange visually, edit note-by-note in a piano roll, play back, and record to an audio file.
+A coding-first digital audio workstation that runs in the browser. Write JavaScript to define instruments, patterns, and effects! The code is rendered as draggable clips on a timeline that you can rearrange visually, edit note-by-note in a piano roll, play back, and record to an audio file.
 
-The code is the source of truth: drag a clip, and the `start:` value in your code updates. Edit a melody in the piano roll, and the events array in your code rewrites itself. Re-run anytime to regenerate everything from the editor.
+The code is the essense: drag a clip, and the `start:` value in your code updates. Edit a melody in the piano roll, and the events array in your code rewrites itself. Re-run anytime to regenerate everything from the editor.
 
-Final project for **COMS3430 (Spring 2026)** — Prof. Mark Santolucito, Barnard College.
+Final project for **COMS3430 (Spring 2026)** — Dr. Santolucito, Barnard College.
 
 **Live demo:** https://andrew-bonilla.github.io/coDAW/
 
@@ -12,15 +12,15 @@ Final project for **COMS3430 (Spring 2026)** — Prof. Mark Santolucito, Barnard
 
 ## Motivation
 
-The idea for coDAW came out of the live-coding performances we did in class using [Strudel](https://strudel.cc/). Watching a piece of music get built collaboratively — each person editing the code the previous person had written, layering and reworking ideas in real time — was unlike any music-making experience I'd had before. It felt closer to pair programming than to a band rehearsal, and it made me realize how much of music production has been locked behind GUI-heavy DAWs that don't lend themselves to that kind of fluid, iterative collaboration.
+I had the idea for coDAW from the live-coding performances we did in class using [Strudel](https://strudel.cc/). Watching music get built collaboratively from just code, with each person editing the code the previous person had written, layering and reworking ideas in real time, was unlike any music-making experience I've had before. It combined pair programming to a band jam session, and inspired me to explore more about this strange, new path into music. It made me realize how much of music production has been locked behind GUI-heavy DAWs that don't invest into that kind of fluid, iterative collaboration.
 
-A code-first DAW changes the surface area of the problem in a few ways I find exciting:
+A code-first DAW changes the problem in a few ways I find exciting:
 
-- **Automation and computation become native.** Loops, conditionals, generative patterns, and parametric sound design are just code — no need to draw automation lanes or wire up modulation chains by hand. Complex synths, sequences, and effect topologies that would take a long time to build by clicking and dragging can be expressed in a few lines.
-- **Music becomes diffable.** Once a song is text, it lives naturally in Git. You can branch, fork, pull-request, and review music the same way you do code — opening the door to GitHub-style collaboration on songs and sample packs in the future.
+- **Automation and computation become native.** Loops, conditionals, generative patterns, and parametric sound design are just code. There is no need to draw automation lanes or wire up modulation chains by hand. Complex synths, sequences, and effect topologies that would take a long time to build by clicking and dragging can be expressed in a few lines. Furthermore, any of these complex, abstract customizations can be quantified into code and patterns, more objectively comprehendible, teachable, and shareable.
+- **Music becomes diffable.** Once a song is turned into objective text, it exists naturally in Git. You can branch, fork, pull-request, and review music the same way you do code! This opens the door to GitHub-style collaboration on songs and sample packs in the future. Further updates could address this through a "coDAW pages" feature, layering different sounds together at once, so that developers can work on different features and branches to merge.
 - **AI-assisted music editing becomes straightforward.** Because the entire composition is just a JavaScript file, an LLM can read it, reason about it, and propose edits via prompt — "make the bass groovier," "add a bridge in F# minor," "swap the lead synth for something darker." The code is the interface both humans and models can manipulate.
 
-coDAW is my attempt to take what made Strudel sessions feel so creative and stretch it into something that looks and behaves more like a traditional DAW — with a timeline, draggable clips, a piano roll, and a record button — while keeping code as the source of truth underneath.
+coDAW is my attempt to take what made Strudel sessions feel so creative and stretch it into something that looks and behaves more like a traditional DAW: a timeline, draggable clips, a piano roll, and a record button. All while having code as the essence underneath.
 
 ## Features
 
