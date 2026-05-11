@@ -1,5 +1,10 @@
 # coDAW
 
+<p align="center">
+  <img src="./docs/live-coding-me.jpf" alt="Me live-coding with Strudel" width="600" />
+</p>
+
+
 A coding-first digital audio workstation that runs in the browser. Write JavaScript to define instruments, patterns, and effects! The code is rendered as draggable clips on a timeline that you can rearrange visually, edit note-by-note in a piano roll, play back, and record to an audio file.
 
 The code is the essense: drag a clip, and the `start:` value in your code updates. Edit a melody in the piano roll, and the events array in your code rewrites itself. Re-run anytime to regenerate everything from the editor.
